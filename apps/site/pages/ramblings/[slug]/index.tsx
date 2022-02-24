@@ -3,7 +3,10 @@ import { ParsedUrlQuery } from 'querystring';
 import { join } from 'path';
 import fs from 'fs';
 import { cwd, env } from 'process';
-import { renderMarkdownFromFile } from '@chakrakan-dev/markdown';
+import {
+  MarkdownRenderingResult,
+  renderMarkdownFromFile,
+} from '@chakrakan-dev/markdown';
 import { MDXRemote } from 'next-mdx-remote';
 import { mdxElements } from '@chakrakan-dev/shared/mdx-elements';
 import './index.module.css';
@@ -25,7 +28,11 @@ export function Article({ frontMatter, html }) {
   );
 }
 
-export const getStaticProps = async ({ params }: { params: ArticleProps }) => {
+export const getStaticProps: GetStaticProps<MarkdownRenderingResult> = async ({
+  params,
+}: {
+  params: ArticleProps;
+}) => {
   const POSTS_PATH = join(cwd(), env.ARTICLES_FOLDER);
   const mdxSource = await renderMarkdownFromFile(params.slug, POSTS_PATH);
   return {
