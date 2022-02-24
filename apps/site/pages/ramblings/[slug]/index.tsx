@@ -1,81 +1,50 @@
-import {
-  Client,
-  APIErrorCode,
-  LogLevel,
-  ClientErrorCode,
-  isNotionClientError,
-} from '@notionhq/client';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import { join } from 'path';
+import fs from 'fs';
+import { cwd, env } from 'process';
+import { renderMarkdownFromFile } from '@chakrakan-dev/markdown';
+import { MDXRemote } from 'next-mdx-remote';
+import { mdxElements } from '@chakrakan-dev/shared/mdx-elements';
 import './index.module.css';
 
-/* eslint-disable-next-line */
-export interface ArticleProps extends ParsedUrlQuery {
+interface ArticleProps extends ParsedUrlQuery {
   slug: string;
 }
 
-export function Article(props: ArticleProps) {
+export function Article({ frontMatter, html }) {
   return (
-    <div>
-      <h1>Visitng, {props.slug}</h1>
+    <div className="m-6">
+      <article className="prose prose-lg">
+        <h1>{frontMatter.title}</h1>
+        <div>by {frontMatter.author.name}</div>
+      </article>
+      <hr />
+      <MDXRemote {...html} components={mdxElements} />
     </div>
   );
 }
 
-export const getStaticProps: GetStaticProps<ArticleProps> = async ({
-  params,
-}: {
-  params: ArticleProps;
-}) => {
-  const notion = new Client({
-    auth: process.env.NOTION_TOKEN,
-    logLevel: LogLevel.DEBUG,
-  });
-
-  try {
-    const data = await notion.blocks.children.list({
-      block_id: process.env.PAGE_ID,
-    });
-    console.log(data);
-  } catch (err: unknown) {
-    if (isNotionClientError(err)) {
-      switch (err.code) {
-        case ClientErrorCode.RequestTimeout:
-          console.error('Notion Request Timeout');
-          break;
-        case APIErrorCode.ObjectNotFound:
-          console.error('Notion Object not found', err.message);
-          break;
-        case APIErrorCode.Unauthorized:
-          console.error('Unauthorized attempt to access to Notion');
-          break;
-        default:
-          console.error(err);
-      }
-    }
-  }
-
+export const getStaticProps = async ({ params }: { params: ArticleProps }) => {
+  const POSTS_PATH = join(cwd(), env.ARTICLES_FOLDER);
+  const mdxSource = await renderMarkdownFromFile(params.slug, POSTS_PATH);
   return {
     props: {
-      slug: params.slug,
+      frontMatter: mdxSource.frontmatter,
+      html: mdxSource,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths<ArticleProps> = async () => {
+  const POSTS_PATH = join(process.cwd(), env.ARTICLES_FOLDER);
+  const paths = fs
+    .readdirSync(POSTS_PATH)
+    .map((path) => path.replace(/\.mdx?$/, ''))
+    .map((slug) => ({ params: { slug } }));
+
   return {
-    paths: [
-      {
-        params: {
-          slug: 'page1',
-        },
-      },
-      {
-        params: {
-          slug: 'page2',
-        },
-      },
-    ],
+    paths,
     fallback: false,
   };
 };
