@@ -16,6 +16,7 @@ export default async function nextWatchServer(
   const handle = app.getRequestHandler();
   await app.prepare();
 
+  // articles folder passed to the nx version of the underlying next server
   const articlePath = env.ARTICLES_FOLDER;
 
   // watch folders if specified

@@ -9,7 +9,7 @@ export interface GetInTouchProps {
 export function GetInTouch({ name }: GetInTouchProps) {
   return (
     <div>
-      <h1>Get it touch with {name}</h1>
+      <h1>Get in touch with {name}</h1>
     </div>
   );
 }
