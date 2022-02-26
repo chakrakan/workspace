@@ -6,8 +6,10 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
+    "test-watch": "nx e2e site-e2e --watch",
     "dep-graph": "nx dep-graph",
-    "storybook": "nx storybook shared-ui"
+    "storybook": "nx storybook shared-ui",
+    "create-page": "nx g @nrwl/next:page --name=new-page --project=site"
   },
   "private": true,
   "dependencies": {
