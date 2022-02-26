@@ -1,7 +1,5 @@
 import { GetStaticProps } from 'next';
 import './index.module.css';
-
-/* eslint-disable-next-line */
 export interface GetInTouchProps {
   name: string;
 }
