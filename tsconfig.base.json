@@ -18,7 +18,8 @@
       "@chakrakan-dev/markdown": ["libs/markdown/src/index.ts"],
       "@chakrakan-dev/shared/mdx-elements": [
         "libs/shared/mdx-elements/src/index.ts"
-      ]
+      ],
+      "@chakrakan-dev/shared/ui": ["libs/shared/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
