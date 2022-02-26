@@ -6,7 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "test-watch": "nx e2e site-e2e --watch",
+    "e2e-test-watch": "nx e2e site-e2e --watch",
+    "storybook-e2e-watch": "nx e2e storybook-e2e-ui-e2e --watch",
     "dep-graph": "nx dep-graph",
     "storybook": "nx storybook shared-ui",
     "create-page": "nx g @nrwl/next:page --name=new-page --project=site"
