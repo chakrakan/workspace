@@ -4,8 +4,15 @@
 
 🔎 **Smart, Fast and Extensible Build System**
 
-- Nx
+- Nx apps
   - Next.js site
+- Nx libs
+  - Markdown config/utils
+  - Shared
+    - Markdown components
+    - React Storybook components
+- Nx Generators
+  - Create a new article
 
 ## Development server
 
