@@ -6,7 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
-    "dep-graph": "nx dep-graph"
+    "dep-graph": "nx dep-graph",
+    "storybook": "nx storybook shared-ui"
   },
   "private": true,
   "dependencies": {
