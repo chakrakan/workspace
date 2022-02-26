@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-
 export interface TopicButtonProps {
   topicName: string;
   onClick?: (topicName: string) => void;
@@ -32,12 +31,15 @@ export function TopicButton(props: TopicButtonProps) {
 
   return (
     <div
-      className="bg-white pl-4 rounded-lg shadow flex max-w-md min-w-max hover:shadow-md transition-shadow"
+      className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4 hover:shadow-md transition-shadow"
+      data-testid="topicButton"
       onClick={onClickHandler}
     >
-      <img src={icon} alt="" className="w-12" />
+      <img src={icon} alt="" className="h-12 w-12" />
       <div className="p-5">
-        <h2 className="font-bold text-4xl">{props.topicName}</h2>
+        <h2 className="font-bold text-4xl" data-testid="topicName">
+          {props.topicName}
+        </h2>
       </div>
     </div>
   );
