@@ -5,8 +5,8 @@
     "shared-mdx-elements": "libs/shared/mdx-elements",
     "shared-ui": "libs/shared/ui",
     "site": "apps/site",
+    "site-articles": "_articles",
     "site-e2e": "apps/site-e2e",
-    "storybook-e2e-ui-e2e": "apps/storybook-e2e/ui-e2e",
-    "site-articles": "_articles"
+    "storybook-e2e-ui-e2e": "apps/storybook-e2e/ui-e2e"
   }
 }
