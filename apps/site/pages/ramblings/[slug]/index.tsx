@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { join } from 'path';
+import path, { join } from 'path';
 import fs from 'fs';
 import { cwd, env } from 'process';
 import {
@@ -9,7 +9,6 @@ import {
 } from '@chakrakan-dev/markdown';
 import { MDXRemote } from 'next-mdx-remote';
 import { mdxElements } from '@chakrakan-dev/shared/mdx-elements';
-import './index.module.css';
 
 interface ArticleProps extends ParsedUrlQuery {
   slug: string;
@@ -47,8 +46,11 @@ export const getStaticPaths: GetStaticPaths<ArticleProps> = async () => {
   const POSTS_PATH = join(process.cwd(), env.ARTICLES_FOLDER);
   const paths = fs
     .readdirSync(POSTS_PATH)
+    .filter((fileName) => path.extname(fileName).toLowerCase() === '.mdx')
     .map((path) => path.replace(/\.mdx?$/, ''))
-    .map((slug) => ({ params: { slug } }));
+    .map((slug) => {
+      return { params: { slug } };
+    });
 
   return {
     paths,
