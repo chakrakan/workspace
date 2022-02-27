@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next';
-import './index.module.css';
 export interface GetInTouchProps {
   name: string;
 }
