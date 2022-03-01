@@ -1,12 +1,10 @@
 import {
   Tree,
   formatFiles,
-  installPackagesTask,
   generateFiles,
   joinPathFragments,
   names,
 } from '@nrwl/devkit';
-import { libraryGenerator } from '@nrwl/workspace/generators';
 
 interface NewArticleSchemaOptions {
   title: string;

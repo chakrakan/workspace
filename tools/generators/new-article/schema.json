@@ -22,7 +22,7 @@
     "excerpt": {
       "type": "string",
       "description": "An excerpt that summarizes the blog post in a single line",
-      "default": ""
+      "default": "sample excerpt"
     }
   },
   "required": ["title", "author"]
